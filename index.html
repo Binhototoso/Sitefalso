@@ -1,20 +1,19 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BNFLIX</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <h1>📺 BNFLIX</h1>
     <nav>
-      <a href="#">Início</a>
+      <a href="index.html">Início</a>
       <a href="#">Séries</a>
       <a href="#">Gêneros</a>
-      <input type="text" placeholder="Títulos, tags, assuntos..."/>
+      <input type="text" placeholder="Títulos, tags, assuntos...">
     </nav>
   </header>
 
@@ -22,10 +21,10 @@
     <section class="destaque">
       <h2>Destaques</h2>
       <div class="grade">
-        <!-- Card de série 1 -->
-        <a href="series.html">
+        <!-- Card 1 - Treehouse of Horror -->
+        <a href="series.html?titulo=Treehouse of Horror&ano=2003&nota=9.1&img=tree.jpg&sinopse=Treehouse of Horror é uma série de episódios antológicos anuais com tema de Halloween da sitcom animada americana Os Simpsons.&diretor=David Silverman&elenco=Dan Castellaneta, Julie Kavner, Nancy Cartwright&empresa=Fox&generos=Comédia,Terror,Animacao">
           <div class="card">
-            <img src="img/tree.jpg" alt="The Simpsons: Treehouse of Horror" />
+            <img src="img/tree.jpg" alt="The Simpsons: Treehouse of Horror">
             <div class="info">
               <span class="tag">Destaque</span>
               <h3>Treehouse of Horror</h3>
@@ -34,16 +33,29 @@
             </div>
           </div>
         </a>
-        
-        <!-- Card de série 2 -->
-        <a href="#">
+
+        <!-- Card 2 - Breaking Bad -->
+        <a href="series.html?titulo=Breaking Bad&ano=2008-2013&nota=9.5&img=breaking-bad.jpg&sinopse=Um professor de química com câncer se associa a um ex-aluno para fabricar e vender metanfetamina.&diretor=Vince Gilligan&elenco=Bryan Cranston, Aaron Paul, Anna Gunn&empresa=AMC&generos=Drama,Suspense,Crime">
           <div class="card">
-            <img src="img/st.jpeg" alt="Stranger Things" />
+            <img src="img/breaking-bad.jpg" alt="Breaking Bad">
             <div class="info">
               <span class="tag">Popular</span>
-              <h3>Stranger Things</h3>
-              <p>2018-2025</p>
+              <h3>Breaking Bad</h3>
+              <p>2008-2013</p>
               <span class="nota">⭐ 9.5</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 3 - Stranger Things -->
+        <a href="series.html?titulo=Stranger Things&ano=2016-presente&nota=8.7&img=stranger-things.jpg&sinopse=Quando um garoto desaparece, uma pequena cidade descobre um mistério envolvendo experimentos secretos e forças sobrenaturais.&diretor=Duffer Brothers&elenco=Millie Bobby Brown, Finn Wolfhard, Winona Ryder&empresa=Netflix&generos=Ficção Científica,Terror,Suspense">
+          <div class="card">
+            <img src="img/stranger-things.jpg" alt="Stranger Things">
+            <div class="info">
+              <span class="tag">Novidade</span>
+              <h3>Stranger Things</h3>
+              <p>2016-presente</p>
+              <span class="nota">⭐ 8.7</span>
             </div>
           </div>
         </a>
