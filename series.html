@@ -68,6 +68,76 @@
   </main>
 
   <script>
+  // Banco de dados de episódios (poderia ser um JSON externo)
+  const episodiosPorSerie = {
+    "Treehouse of Horror": [
+      { id: "1Dd9_LTwCOlOzZtTv5lDgEFNUlLfNzhE5", titulo: "TreeHouse Horror I" },
+      { id: "1EGKeNNVgmtjTUe-_0uqOLxuEcHkmm0N6", titulo: "TreeHouse Horror II" },
+      { id: "1Fgh0ipwigf7Jlo80_lkW2aeQbPnsWv25", titulo: "TreeHouse Horror III" }
+    ],
+    "Breaking Bad": [
+      { id: "2AabBCdDeFgHiJkLmNoPqRsTuVwXyZ123", titulo: "Piloto" },
+      { id: "2BcdCDefGhiJkLmNopQrStUvWxYz456", titulo: "O Gato na Bolsa" },
+      { id: "2CdeDEfGhIjKlMnOpQrStUvWxYz789", titulo: "E a Bolsa no Rio" }
+    ],
+    "Stranger Things": [
+      { id: "3DdeEFgHijKlMnOpQrStUvWxYz012", titulo: "Capítulo Um" },
+      { id: "3EefFGhIjkLmNoPqRsTuVwXyZ345", titulo: "Capítulo Dois" },
+      { id: "3FfgGHijKlMnOpQrStUvWxYz678", titulo: "Capítulo Três" }
+    ]
+  };
+
+  // Função para carregar episódios baseado na série selecionada
+  function carregarEpisodios(serieTitulo) {
+    const lista = document.getElementById('lista-episodios');
+    lista.innerHTML = '';
+    
+    const episodios = episodiosPorSerie[serieTitulo] || [];
+    
+    if (episodios.length === 0) {
+      lista.innerHTML = '<p>Nenhum episódio disponível para esta série.</p>';
+      return;
+    }
+
+    episodios.forEach((ep, index) => {
+      lista.innerHTML += `
+        <div class="episodio">
+          <span>📺 ${ep.titulo}</span>
+          <button onclick="abrirPlayer(this)" 
+                  data-id="${ep.id}"
+                  data-titulo="${ep.titulo}">
+            Assistir
+          </button>
+        </div>
+      `;
+    });
+  }
+
+  // Função para abrir o player
+  function abrirPlayer(botao) {
+    const id = botao.getAttribute('data-id');
+    const titulo = botao.getAttribute('data-titulo');
+    const iframe = document.getElementById('iframe-player');
+    const player = document.getElementById('player');
+    
+    document.getElementById('titulo-player').textContent = `Assistindo: ${titulo}`;
+    iframe.src = `https://drivewebplayer.blogspot.com/?id=${id}`;
+    player.style.display = 'block';
+    window.scrollTo({
+      top: player.offsetTop,
+      behavior: 'smooth'
+    });
+  }
+
+  // No carregarDadosSerie(), atualize para chamar carregarEpisodios()
+  function carregarDadosSerie() {
+    const dados = getUrlParams();
+    // ... (restante do código existente)
+    carregarEpisodios(dados.titulo);
+  }
+  </script>
+
+  <script>
     // Função para obter parâmetros da URL
     function getUrlParams() {
       const params = new URLSearchParams(window.location.search);
