@@ -49,31 +49,13 @@
         <h3>Escolha a Temporada</h3>
         <select id="selecao-temporada" onchange="trocarTemporada()">
           <option value="1">Temporada 1</option>
-          <option value="2">Temporada 2 (NÃO TEM)</option>
+          <option value="2">Temporada 2</option>
+          <option value="3">Temporada 3</option>
         </select>
       </div>
 
       <div id="lista-episodios" class="lista-episodios">
-        <div class="episodio">
-          <span>📺 TreeHouse Horror I</span>
-          <button onclick="abrirPlayer(this)" data-id="1Dd9_LTwCOlOzZtTv5lDgEFNUlLfNzhE5">Assistir</button>
-        </div>
-        <div class="episodio">
-          <span>📺 TreeHouse Horror II</span>
-          <button onclick="abrirPlayer(this)" data-id="1EGKeNNVgmtjTUe-_0uqOLxuEcHkmm0N6">Assistir</button>
-        </div>
-        <div class="episodio">
-          <span>📺 TreeHouse Horror III</span>
-          <button onclick="abrirPlayer(this)" data-id="1Fgh0ipwigf7Jlo80_lkW2aeQbPnsWv25">Assistir</button>
-        </div>
-                <div class="episodio">
-          <span>📺 TreeHouse Horror I</span>
-          <button onclick="abrirPlayer(this)" data-id="1Dd9_LTwCOlOzZtTv5lDgEFNUlLfNzhE5">Assistir</button>
-        </div>
-                <div class="episodio">
-          <span>📺 TreeHouse Horror I</span>
-          <button onclick="abrirPlayer(this)" data-id="1Dd9_LTwCOlOzZtTv5lDgEFNUlLfNzhE5">Assistir</button>
-        </div>
+        <!-- Os episódios serão carregados dinamicamente aqui -->
       </div>
 
       <div id="player" class="player" style="display: none;">
@@ -95,6 +77,47 @@
 
   <!-- Script do player -->
   <script>
+    // Dados dos episódios por temporada
+    const episodiosPorTemporada = {
+      1: [
+        { titulo: "📺 TreeHouse Horror I", id: "1Dd9_LTwCOlOzZtTv5lDgEFNUlLfNzhE5" },
+        { titulo: "📺 TreeHouse Horror II", id: "1EGKeNNVgmtjTUe-_0uqOLxuEcHkmm0N6" },
+        { titulo: "📺 TreeHouse Horror III", id: "1Fgh0ipwigf7Jlo80_lkW2aeQbPnsWv25" }
+      ],
+      2: [
+        { titulo: "📺 TreeHouse Horror IV", id: "1Ghi1Jpwigf7Jlo80_lkW2aeQbPnsWv25" },
+        { titulo: "📺 TreeHouse Horror V", id: "1Hij2Kpwigf7Jlo80_lkW2aeQbPnsWv25" },
+        { titulo: "📺 TreeHouse Horror VI", id: "1Ijk3Lpwigf7Jlo80_lkW2aeQbPnsWv25" }
+      ],
+      3: [
+        { titulo: "📺 TreeHouse Horror VII", id: "1Jkl4Mpwigf7Jlo80_lkW2aeQbPnsWv25" },
+        { titulo: "📺 TreeHouse Horror VIII", id: "1Klm5Npwigf7Jlo80_lkW2aeQbPnsWv25" },
+        { titulo: "📺 TreeHouse Horror IX", id: "1Lmn6Opwigf7Jlo80_lkW2aeQbPnsWv25" }
+      ]
+    };
+
+    function carregarEpisodios(temporada) {
+      const listaEpisodios = document.getElementById('lista-episodios');
+      listaEpisodios.innerHTML = ''; // Limpa a lista atual
+      
+      // Verifica se a temporada existe nos dados
+      if (episodiosPorTemporada[temporada]) {
+        episodiosPorTemporada[temporada].forEach(episodio => {
+          const divEpisodio = document.createElement('div');
+          divEpisodio.className = 'episodio';
+          
+          divEpisodio.innerHTML = `
+            <span>${episodio.titulo}</span>
+            <button onclick="abrirPlayer(this)" data-id="${episodio.id}">Assistir</button>
+          `;
+          
+          listaEpisodios.appendChild(divEpisodio);
+        });
+      } else {
+        listaEpisodios.innerHTML = '<p>Nenhum episódio disponível para esta temporada.</p>';
+      }
+    }
+
     function abrirPlayer(botao) {
       const id = botao.getAttribute('data-id');
       const titulo = botao.parentElement.querySelector('span').innerText;
@@ -119,18 +142,14 @@
 
     function trocarTemporada() {
       const temporada = document.getElementById('selecao-temporada').value;
-      const lista = document.getElementById('lista-episodios');
-      const player = document.getElementById('player');
-
-      if (temporada === '2') {
-        lista.style.display = 'none';
-        player.style.display = 'none';
-      } else {
-        lista.style.display = 'flex';
-      }
+      carregarEpisodios(temporada);
     }
 
-    window.onload = trocarTemporada;
+    // Carrega os episódios da primeira temporada ao carregar a página
+    window.onload = function() {
+      document.getElementById('selecao-temporada').value = '1';
+      carregarEpisodios('1');
+    };
   </script>
 
 </body>
