@@ -75,9 +75,20 @@
 
   </main>
 
+  <!-- Footer adicionado -->
+  <footer class="bn-footer">
+    <div class="footer-content">
+      <p>© 2024 BNMOVIE | Criado por <span class="bn-creator">Binho</span> 
+        <a href="https://www.instagram.com/xbnzslv" target="_blank" class="ig-link">
+          <i class="ig-icon"></i> @xbnzslv
+        </a>
+      </p>
+    </div>
+  </footer>
+
   <!-- Script do player -->
   <script>
-    // Dados dos episódios por temporada
+    // Dados dos episódios por temporada (corrigido)
     const episodiosPorTemporada = {
       1: [
         { titulo: "📺 TreeHouse Horror I", id: "1Dd9_LTwCOlOzZtTv5lDgEFNUlLfNzhE5" },
@@ -91,26 +102,23 @@
       ],
       3: [
         { titulo: "📺 TreeHouse Horror VII", id: "1GzMXun5FyeDKopeorhU7aQWiWoq84Wac" },
-        { titulo: "📺 TreeHouse Horror IX", id: "1H2_F0PaV_duVcDYnNLEln8LNno1SVdAj" },
-        { titulo: "📺 TreeHouse Horror X", id: "19oxFBHnH2wavHYvCo99hFxed6-s7eAlb" }
+        { titulo: "📺 TreeHouse Horror VIII", id: "1H2_F0PaV_duVcDYnNLEln8LNno1SVdAj" }, <!-- Corrigido de IX para VIII -->
+        { titulo: "📺 TreeHouse Horror IX", id: "19oxFBHnH2wavHYvCo99hFxed6-s7eAlb" }  <!-- Corrigido de X para IX -->
       ]
     };
 
     function carregarEpisodios(temporada) {
       const listaEpisodios = document.getElementById('lista-episodios');
-      listaEpisodios.innerHTML = ''; // Limpa a lista atual
+      listaEpisodios.innerHTML = '';
       
-      // Verifica se a temporada existe nos dados
       if (episodiosPorTemporada[temporada]) {
         episodiosPorTemporada[temporada].forEach(episodio => {
           const divEpisodio = document.createElement('div');
           divEpisodio.className = 'episodio';
-          
           divEpisodio.innerHTML = `
             <span>${episodio.titulo}</span>
             <button onclick="abrirPlayer(this)" data-id="${episodio.id}">Assistir</button>
           `;
-          
           listaEpisodios.appendChild(divEpisodio);
         });
       } else {
@@ -121,16 +129,21 @@
     function abrirPlayer(botao) {
       const id = botao.getAttribute('data-id');
       const titulo = botao.parentElement.querySelector('span').innerText;
-
       const iframe = document.getElementById('iframe-player');
       const player = document.getElementById('player');
       const tituloPlayer = document.getElementById('titulo-player');
 
       iframe.src = `https://drivewebplayer.blogspot.com/?id=${id}`;
       tituloPlayer.innerText = 'Assistindo: ' + titulo;
-
       player.style.display = 'block';
       player.scrollIntoView({ behavior: 'smooth' });
+      
+      // Pausa todos os players se houver mais de um
+      document.querySelectorAll('iframe').forEach(frame => {
+        if(frame.id !== 'iframe-player') {
+          frame.src = frame.src; // Recarrega para pausar
+        }
+      });
     }
 
     function fecharPlayer() {
@@ -143,14 +156,47 @@
     function trocarTemporada() {
       const temporada = document.getElementById('selecao-temporada').value;
       carregarEpisodios(temporada);
+      document.getElementById('player').style.display = 'none';
     }
 
-    // Carrega os episódios da primeira temporada ao carregar a página
-    window.onload = function() {
+    // Carregamento seguro
+    document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('selecao-temporada').value = '1';
       carregarEpisodios('1');
-    };
+    });
   </script>
 
+  <!-- CSS do footer (pode ser colocado no style.css) -->
+  <style>
+    .bn-footer {
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      border-top: 1px solid #222;
+    }
+    .bn-creator {
+      color: #4dabf7;
+      font-weight: bold;
+    }
+    .ig-link {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .ig-link:hover {
+      color: #e1306c;
+    }
+    .ig-icon {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23e1306c"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>');
+      background-size: contain;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+  </style>
 </body>
 </html>
