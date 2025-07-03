@@ -3,121 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Treehouse - BNMOVIE</title>
+  <title>BNFLIX</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <header>
-    <h1>📺 BNMOVIE</h1>
+    <h1>📺 BNFLIX</h1>
     <nav>
       <a href="index.html">Início</a>
       <a href="#">Séries</a>
       <a href="#">Gêneros</a>
+      <input type="text" placeholder="Títulos, tags, assuntos...">
     </nav>
   </header>
 
-  <main class="serie-container">
-    <section class="serie-info">
-      <img src="img/tree.jpg" alt="Capa da Série" class="poster">
+  <main>
+    <section class="destaque">
+      <h2>Destaques</h2>
+      <div class="grade">
+        <!-- Card 1 - Treehouse of Horror -->
+        <a href="series.html?titulo=Treehouse of Horror&ano=2003&nota=9.1&img=tree.jpg&sinopse=Treehouse of Horror é uma série de episódios antológicos anuais com tema de Halloween da sitcom animada americana Os Simpsons.&diretor=David Silverman&elenco=Dan Castellaneta, Julie Kavner, Nancy Cartwright&empresa=Fox&generos=Comédia,Terror,Animacao">
+          <div class="card">
+            <img src="img/tree.jpg" alt="The Simpsons: Treehouse of Horror">
+            <div class="info">
+              <span class="tag">Destaque</span>
+              <h3>Treehouse of Horror</h3>
+              <p>2003</p>
+              <span class="nota">⭐ 9.1</span>
+            </div>
+          </div>
+        </a>
 
-      <div class="detalhes">
-        <h2>Treehouse</h2>
-        <p class="meta"><strong>1990</strong> • 23min • <strong>Nota: 9.2/10</strong></p>
-
-        <p class="sinopse">
-          <strong>Sinopse:</strong>Treehouse of Horror é uma série de episódios antológicos anuais com tema de Halloween da sitcom animada americana e derivada de Os Simpsons.
-        </p>
-
-        <div class="generos">
-          <button>Ação</button>
-          <button>Drama</button>
-          <button>Suspense</button>
-        </div>
-
-        <p><strong>Diretor:</strong> Foi Uma Pessoa ai</p>
-        <p><strong>Elenco:</strong> Num Sei</p>
-        <p><strong>Empresa:</strong> Fox</p>
+        <!-- Card 3 - Stranger Things -->
+        <a href="series.html?titulo=Stranger Things&ano=2016-presente&nota=8.7&img=stranger-things.jpg&sinopse=Quando um garoto desaparece, uma pequena cidade descobre um mistério envolvendo experimentos secretos e forças sobrenaturais.&diretor=Duffer Brothers&elenco=Millie Bobby Brown, Finn Wolfhard, Winona Ryder&empresa=Netflix&generos=Ficção Científica,Terror,Suspense">
+          <div class="card">
+            <img src="img/st.jpeg" alt="Stranger Things">
+            <div class="info">
+              <span class="tag">Novidade</span>
+              <h3>Stranger Things</h3>
+              <p>2016-presente</p>
+              <span class="nota">⭐ 8.7</span>
+            </div>
+          </div>
+        </a>
       </div>
     </section>
-    <section class="episodios">
-      <div class="temporada-select">
-        <h3>Escolha a Temporada</h3>
-        <select id="selecao-temporada" onchange="trocarTemporada()">
-          <option value="1">Temporada 1</option>
-          <option value="2">Temporada 2 (NÃO TEM)</option>
-        </select>
-      </div>
-
-      <div id="lista-episodios" class="lista-episodios">
-        <div class="episodio">
-          <span>📺 TreeHouse Horror I</span>
-          <button onclick="abrirPlayer(this)" data-id="1Dd9_LTwCOlOzZtTv5lDgEFNUlLfNzhE5">Assistir</button>
-        </div>
-        <div class="episodio">
-          <span>📺 TreeHouse Horror II</span>
-          <button onclick="abrirPlayer(this)" data-id="1EGKeNNVgmtjTUe-_0uqOLxuEcHkmm0N6">Assistir</button>
-        </div>
-        <div class="episodio">
-          <span>📺 TreeHouse Horror III</span>
-          <button onclick="abrirPlayer(this)" data-id="1Fgh0ipwigf7Jlo80_lkW2aeQbPnsWv25">Assistir</button>
-        </div>
-      </div>
-
-      <div id="player" class="player" style="display: none;">
-        <h3 id="titulo-player">Assistindo: Episódio Selecionado</h3>
-        <button id="fechar-player" onclick="fecharPlayer()" style="position:absolute;top:10px;right:10px;z-index:2;">Fechar ✖</button>
-        <iframe
-          id="iframe-player"
-          width="100%" height="260"
-          scrolling="no"
-          src=""
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-    </section>
-
   </main>
-  <script>
-    function abrirPlayer(botao) {
-      const id = botao.getAttribute('data-id');
-      const titulo = botao.parentElement.querySelector('span').innerText;
-
-      const iframe = document.getElementById('iframe-player');
-      const player = document.getElementById('player');
-      const tituloPlayer = document.getElementById('titulo-player');
-
-      iframe.src = `https://drivewebplayer.blogspot.com/?id=${id}`;
-      tituloPlayer.innerText = 'Assistindo: ' + titulo;
-
-      player.style.display = 'block';
-      player.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function fecharPlayer() {
-      const player = document.getElementById('player');
-      const iframe = document.getElementById('iframe-player');
-      player.style.display = 'none';
-      iframe.src = '';
-    }
-
-    function trocarTemporada() {
-      const temporada = document.getElementById('selecao-temporada').value;
-      const lista = document.getElementById('lista-episodios');
-      const player = document.getElementById('player');
-
-      if (temporada === '2') {
-        lista.style.display = 'none';
-        player.style.display = 'none';
-      } else {
-        lista.style.display = 'flex';
-      }
-    }
-
-    window.onload = trocarTemporada;
-  </script>
-
 </body>
 </html>
